@@ -27,7 +27,7 @@ export class ContainerController {
 
     @Post("/")
     async create(@Body() conDTO: CreateConDTO, @Res() res: Response) {
-        const { token, map, slots, webHook, ct, t } = conDTO;
+        const { token, map, slots, webhook, ct, t } = conDTO;
         const { PORT_STEP, GAME_PORT } = process.env;
 
         const { mode, type } = this.utils.setMode(conDTO.mode);
@@ -36,7 +36,7 @@ export class ContainerController {
         const port = (result?.port || Number(GAME_PORT)) + Number(PORT_STEP);
         const name = uuidv4();
 
-        const clanwar_cfg = this.utils.generateCWConfig(name, webHook, ct, t);
+        const clanwar_cfg = this.utils.generateCWConfig(name, webhook, ct, t);
 
         const container = await this.docker.createContainer({
             Image: process.env.IMAGE,
@@ -84,9 +84,9 @@ export class ContainerController {
             stderr: true
         });
 
-        stream.on("error", this.errorHandler.bind(this, webHook));
+        stream.on("error", this.errorHandler.bind(this, webhook));
 
-        const add = await this.conService.addServerInfo(name, port, webHook, container.id);
+        const add = await this.conService.addServerInfo(name, port, webhook, container.id);
         
         return res.status(200).json({
             success: true,

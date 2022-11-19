@@ -25,7 +25,7 @@ export class CreateConDTO {
     mode: Mode;
     token: string;
     map: string;
-    webHook: string;
+    webhook: string;
     ct: string[];
     t: string[];
 }
