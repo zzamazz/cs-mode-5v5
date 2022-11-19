@@ -45,4 +45,26 @@ export class ContainerUtils {
     
         return expose;
     }
+
+    generateCWConfig(name: string, webhook: string, ct: string[], t: string[]) {
+        const cts = ct.map(s => {
+            return {
+                steamid64: s,
+                team: "ct",
+            };
+        });
+
+        const tts = t.map(s => {
+            return {
+                steamid64: s,
+                team: "t",
+            };
+        });
+
+        return {
+            name: name,
+            api: webhook,
+            players: cts.concat(tts),
+        }
+    }
 }

@@ -1,8 +1,11 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { DataSource } from "typeorm";
 import { MysqlConnectionOptions } from "typeorm/driver/mysql/MysqlConnectionOptions";
+import * as dotenv from "dotenv";
 
 import ServerInfo from "./container/container.entity";
+
+dotenv.config();
 
 export const options: TypeOrmModuleOptions = {
     type: "mysql",

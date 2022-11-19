@@ -13,11 +13,11 @@ export class WebHookService {
 
     async send (url: string, type: EventType, body: EventData) {
         const event = { 
-            type: type, 
+            event: type, 
             data: body,
             timestamp: Math.floor(Date.now() / 1000),
         };
-//https://webhook.site/55fb88c7-ae9e-4932-a30f-e44322a13542
+
         this.httpService.post(url, event).subscribe({
             complete: async () => {
                 this.logger.log(`Webhook sent to this address: ${url}`)

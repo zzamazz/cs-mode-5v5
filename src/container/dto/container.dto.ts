@@ -1,29 +1,31 @@
 export enum Mode {
-    Competitive = "COMPETITIVE",
-    Wingman = "WINGMAN",
-    DeathMatch = "DEATHMATCH",
-    Casual = "CASUAL",
-    ArmsRace = "ARMS_RACE",
-    Demolition = "DEMOLITION",
-    WeaponExpert = "WEAPON_EXPERT",
-    Training = "TRAINING",
-    Custom = "CUSTOM",
-    Guardian = "GUARDIAN",
-    Wargames = "WAR_GAMES",
-    DangerZone = "DANGER_ZONE",
-    CoopStrike = "COOP_STRIKE"
+    Competitive = "competitive",
+    Wingman = "wingman",
+    DeathMatch = "deathmatch",
+    Casual = "casual",
+    ArmsRace = "arms_race",
+    Demolition = "demolition",
+    WeaponExpert = "weapon_expert",
+    Training = "training",
+    Custom = "custom",
+    Guardian = "guardian",
+    Wargames = "war_gamse",
+    DangerZone = "danger_zone",
+    CoopStrike = "coop_strike"
 }
 
 export enum Status {
-    Starting = "STARTING",
-    Started = "STARTED",
-    Deleted = "DELETED"
+    Starting = "starting",
+    Started = "started",
+    Deleted = "deleted"
 }
 
 export class CreateConDTO {
-    maxplayersOverride: number;
+    slots: number;
     mode: Mode;
     token: string;
     map: string;
     webHook: string;
+    ct: string[];
+    t: string[];
 }

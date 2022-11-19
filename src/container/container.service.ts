@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Not, Repository } from "typeorm";
 
 import { Status } from "./dto/container.dto";
 import ServerInfo from "./container.entity";
@@ -11,12 +11,12 @@ export class ConService {
         @InjectRepository(ServerInfo)
         private serversRepository: Repository<ServerInfo>) {}
 
-    async addServerInfo(name: string, port: number, status: Status, webHook: string, container_id: string) : Promise<ServerInfo> {
+    async addServerInfo(name: string, port: number, webHook: string, container_id: string) : Promise<ServerInfo> {
         const serverEntity: ServerInfo = this.serversRepository.create();
         
         serverEntity.name = name;
         serverEntity.port = port;
-        serverEntity.status = status;
+        serverEntity.status = Status.Starting;
         serverEntity.webhook_url = webHook;
         serverEntity.container_id = container_id;
 
@@ -30,7 +30,9 @@ export class ConService {
             order: {
                 id: "DESC"
             },
-            where: {}
+            where: {
+                status: Not(Status.Deleted),
+            }
         });
     }
 
@@ -42,11 +44,11 @@ export class ConService {
         })
     }
 
-    async updateContainer(name_: string, status: Status) {
+    async updateContainer(name: string, status: Status) {
         return await this.serversRepository.createQueryBuilder()
-        .update(ServerInfo)
-        .set({ status: status })
-        .where({ name: name_ })
-        .execute();
+            .update(ServerInfo)
+            .set({ status: status })
+            .where({ name: name })
+            .execute();
     }
 }

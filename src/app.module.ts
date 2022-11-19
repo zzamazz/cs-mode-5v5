@@ -18,7 +18,9 @@ import { EventController } from "./event/event.controller";
 @Module({
   imports: [
     HttpModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot(options),
     TypeOrmModule.forFeature([ServerInfo]),
     WinstonModule.forRoot({
