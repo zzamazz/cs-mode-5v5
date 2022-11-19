@@ -1,0 +1,8 @@
+./node_modules
+./images
+README.md
+private.ppk
+public
+error.log
+combined.log
+./test
