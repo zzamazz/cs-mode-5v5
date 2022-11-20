@@ -1,6 +1,6 @@
 import { Injectable, LoggerService, Inject } from "@nestjs/common";
 import { HttpService } from "@nestjs/axios";
-import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { WINSTON_MODULE_NEST_PROVIDER } from "nest-winston";
 
 import { EventType, EventData } from "./webhook.dto";
 

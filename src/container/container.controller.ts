@@ -97,8 +97,8 @@ export class ContainerController {
         });
     }
 
-    @Delete("/")
-    async delete(@Body() { name }: NameDTO, @Res() res: Response) {
+    @Delete("/:name")
+    async delete(@Param() { name }: NameDTO, @Res() res: Response) {
         const id = await this.conService.getContainerId(name);
         if(!id)
             throw new HttpException("NOT_FOUND", HttpStatus.NOT_FOUND);
