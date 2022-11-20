@@ -55,7 +55,7 @@ export class ContainerController {
                 `CSGO_HOST_PORT=${port + 1}`,
                 `CSGO_CLIENT_PORT=${port + 2}`,
                 `CSGO_MAP=${map}`,
-                `CLANWAR_CONFIG=${JSON.stringify(clanwar_cfg)}`
+                `CLANWAR_CONFIG=${JSON.stringify(clanwar_cfg, null, 4)}`
             ],
             name: `${name}`,
             HostConfig: {
