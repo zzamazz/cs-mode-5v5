@@ -12,7 +12,7 @@ import { NameDTO } from "./dto/name.dto";
 
 @Controller("container")
 export class ContainerController {
-    constructor(private conService: ConService, private readonly utils: ContainerUtils, private readonly webHook: WebHookService) {}
+    constructor(private conService: ConService, private readonly utils: ContainerUtils, private readonly webHook: WebHookService) { }
 
     docker = new Docker({
         protocol: "http",
@@ -32,7 +32,7 @@ export class ContainerController {
 
         const { mode, type } = this.utils.setMode(conDTO.mode);
         const result = await this.conService.getLastPort();
-        
+
         const port = (result?.port || Number(GAME_PORT)) + Number(PORT_STEP);
         const name = uuidv4();
 
@@ -87,7 +87,7 @@ export class ContainerController {
         stream.on("error", this.errorHandler.bind(this, webhook));
 
         const add = await this.conService.addServerInfo(name, port, webhook, container.id);
-        
+
         return res.status(200).json({
             success: true,
             data: {
@@ -100,12 +100,12 @@ export class ContainerController {
     @Delete("/:name")
     async delete(@Param() { name }: NameDTO, @Res() res: Response) {
         const id = await this.conService.getContainerId(name);
-        if(!id)
+        if (!id)
             throw new HttpException("NOT_FOUND", HttpStatus.NOT_FOUND);
 
         const container = this.docker.getContainer(id.container_id);
-        container.stop().then(() => container.remove());
-        
+        container.stop().then(() => container.remove()).catch(() => container.remove());
+
         const update = await this.conService.updateContainer(name, Status.Deleted);
 
         return res.status(200).json({
@@ -119,8 +119,8 @@ export class ContainerController {
     @Get("/:name")
     async info(@Param() { name }: NameDTO, @Res() res: Response) {
         const info = await this.conService.getContainerId(name);
-        if(!info)
-            throw new HttpException("NOT_FOUND", HttpStatus.NOT_FOUND); 
+        if (!info)
+            throw new HttpException("NOT_FOUND", HttpStatus.NOT_FOUND);
 
         return res.status(200).json({
             success: true,
