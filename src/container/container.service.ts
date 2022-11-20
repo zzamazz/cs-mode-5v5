@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm";
 import { Not, Repository } from "typeorm";
 
-import { Status } from "./dto/container.dto";
+import { EStatus } from "./dto/container.dto";
 import ServerInfo from "./container.entity";
 
 @Injectable()
@@ -16,7 +16,7 @@ export class ConService {
         
         serverEntity.name = name;
         serverEntity.port = port;
-        serverEntity.status = Status.Starting;
+        serverEntity.status = EStatus.Starting;
         serverEntity.webhook_url = webHook;
         serverEntity.container_id = container_id;
 
@@ -31,7 +31,7 @@ export class ConService {
                 id: "DESC"
             },
             where: {
-                status: Not(Status.Deleted),
+                status: Not(EStatus.Deleted),
             }
         });
     }
@@ -44,7 +44,7 @@ export class ConService {
         })
     }
 
-    async updateContainer(name: string, status: Status) {
+    async updateContainer(name: string, status: EStatus) {
         return await this.serversRepository.createQueryBuilder()
             .update(ServerInfo)
             .set({ status: status })

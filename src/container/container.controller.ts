@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { WebHookService } from "../webhooks/webhook.service";
 import { ConService } from "./container.service";
 import { EventType } from "../webhooks/webhook.dto";
-import { CreateConDTO, Status } from "./dto/container.dto";
+import { CreateConDTO, EStatus } from "./dto/container.dto";
 import { ContainerUtils } from "../utils/container.service.utils";
 import { NameDTO } from "./dto/name.dto";
 
@@ -106,7 +106,7 @@ export class ContainerController {
         const container = this.docker.getContainer(id.container_id);
         container.stop().then(() => container.remove()).catch(() => container.remove());
 
-        const update = await this.conService.updateContainer(name, Status.Deleted);
+        const update = await this.conService.updateContainer(name, EStatus.Deleted);
 
         return res.status(200).json({
             success: true,

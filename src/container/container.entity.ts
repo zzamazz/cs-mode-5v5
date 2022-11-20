@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-import { Status } from "./dto/container.dto";
+import { EStatus } from "./dto/container.dto";
 
 @Entity()
 export default class ServerInfo {
@@ -14,7 +14,7 @@ export default class ServerInfo {
     port: number;
 
     @Column()
-    status: Status
+    status: EStatus
     
     @Column()
     webhook_url: string

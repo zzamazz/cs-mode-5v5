@@ -1,4 +1,6 @@
-export enum Mode {
+import { ArrayMaxSize, IsArray, IsEnum, IsNumber, IsString, IsUrl } from "class-validator";
+
+export enum EMode {
     Competitive = "competitive",
     Wingman = "wingman",
     DeathMatch = "deathmatch",
@@ -14,18 +16,29 @@ export enum Mode {
     CoopStrike = "coop_strike"
 }
 
-export enum Status {
+export enum EStatus {
     Starting = "starting",
     Started = "started",
     Deleted = "deleted"
 }
 
 export class CreateConDTO {
+    @IsNumber()
     slots: number;
-    mode: Mode;
+    @IsEnum(EMode)
+    mode: EMode;
+    @IsString()
     token: string;
+    @IsString()
     map: string;
+    @IsUrl()
     webhook: string;
+    @IsArray()
+    @IsString({ each: true })
+    @ArrayMaxSize(32)
     ct: string[];
+    @IsArray()
+    @IsString({ each: true })
+    @ArrayMaxSize(32)
     t: string[];
 }

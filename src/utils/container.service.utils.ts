@@ -1,25 +1,25 @@
 import { Injectable } from "@nestjs/common";
 
-import { Mode } from "../container/dto/container.dto";
+import { EMode } from "../container/dto/container.dto";
 
 @Injectable()
 
 export class ContainerUtils {
     setMode(name: string) {
         switch(name) {
-            case Mode.Competitive: return { type: 0, mode: 1 };
-            case Mode.Wingman: return { type: 0, mode: 2 };
-            case Mode.DeathMatch: return { type: 1, mode: 2 };
-            case Mode.Casual: return { type: 0, mode: 0 };
-            case Mode.ArmsRace: return { type: 1, mode: 0 };
-            case Mode.Demolition: return { type: 1, mode: 1 };
-            case Mode.WeaponExpert: return { type: 0, mode: 3 };
-            case Mode.Training: return { type: 2, mode: 0 };
-            case Mode.Guardian: return { type: 4, mode: 0 };
-            case Mode.Custom: return { type: 3, mode: 0 };
-            case Mode.Wargames: return { type: 5, mode: 0 };
-            case Mode.DangerZone: return { type: 6, mode: 0 };
-            case Mode.CoopStrike: return { type: 4, mode: 1 };
+            case EMode.Competitive: return { type: 0, mode: 1 };
+            case EMode.Wingman: return { type: 0, mode: 2 };
+            case EMode.DeathMatch: return { type: 1, mode: 2 };
+            case EMode.Casual: return { type: 0, mode: 0 };
+            case EMode.ArmsRace: return { type: 1, mode: 0 };
+            case EMode.Demolition: return { type: 1, mode: 1 };
+            case EMode.WeaponExpert: return { type: 0, mode: 3 };
+            case EMode.Training: return { type: 2, mode: 0 };
+            case EMode.Guardian: return { type: 4, mode: 0 };
+            case EMode.Custom: return { type: 3, mode: 0 };
+            case EMode.Wargames: return { type: 5, mode: 0 };
+            case EMode.DangerZone: return { type: 6, mode: 0 };
+            case EMode.CoopStrike: return { type: 4, mode: 1 };
             default: return { type: 0, mode: 0 }
         }
     }
